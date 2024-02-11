@@ -7,7 +7,6 @@ import ru.practicum.request.Request;
 import ru.practicum.user.User;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 
 public interface UnionService {
 
