@@ -30,7 +30,6 @@ public class CompilationServiceImpl implements CompilationService {
     public CompilationDto addCompilation(CompilationNewDto compilationNewDto) {
 
         Compilation compilation = CollectionMapper.returnCompilation(compilationNewDto);
-
         if (compilation.getPinned() == null) {
             compilation.setPinned(false);
         }
@@ -39,7 +38,6 @@ public class CompilationServiceImpl implements CompilationService {
         } else {
             compilation.setEvents(eventRepository.findByIdIn(compilationNewDto.getEvents()));
         }
-
         compilation = compilationRepository.save(compilation);
         return CollectionMapper.returnCompilationDto(compilation);
     }
@@ -58,21 +56,17 @@ public class CompilationServiceImpl implements CompilationService {
     public CompilationDto updateCompilation(Long compId, CompilationUpdateDto compilationUpdateDto) {
 
         Compilation compilation = unionService.getCompilationOrNotFound(compId);
-
         if (compilation.getPinned() == null) {
             compilation.setPinned(false);
         }
-
         if (compilationUpdateDto.getEvents() == null || compilationUpdateDto.getEvents().isEmpty()) {
             compilation.setEvents(Collections.emptySet());
         } else {
             compilation.setEvents(eventRepository.findByIdIn(compilationUpdateDto.getEvents()));
         }
-
         if (compilationUpdateDto.getTitle() != null) {
             compilation.setTitle(compilationUpdateDto.getTitle());
         }
-
         compilation = compilationRepository.save(compilation);
         return CollectionMapper.returnCompilationDto(compilation);
     }
@@ -82,7 +76,6 @@ public class CompilationServiceImpl implements CompilationService {
 
         PageRequest pageRequest = PageRequest.of(from / size, size);
         List<Compilation> compilations;
-
         if (pinned) {
             compilations = compilationRepository.findByPinned(pinned, pageRequest);
         } else {
@@ -95,7 +88,6 @@ public class CompilationServiceImpl implements CompilationService {
     public CompilationDto getCompilationById(Long compId) {
 
         Compilation compilation = unionService.getCompilationOrNotFound(compId);
-
         return CollectionMapper.returnCompilationDto(compilation);
     }
 }

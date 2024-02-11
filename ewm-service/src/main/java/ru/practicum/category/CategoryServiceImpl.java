@@ -23,48 +23,38 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     @Override
     public CategoryDto addCategory(CategoryDto categoryDto) {
-
         Category category = CategoryMapper.returnCategory(categoryDto);
         categoryRepository.save(category);
-
         return CategoryMapper.returnCategoryDto(category);
     }
 
     @Transactional
     @Override
     public CategoryDto updateCategory(CategoryDto categoryDto, Long categoryId) {
-
         Category category = unionService.getCategoryOrNotFound(categoryId);
         category.setName(categoryDto.getName());
         categoryRepository.save(category);
-
         return CategoryMapper.returnCategoryDto(category);
     }
 
     @Transactional
     @Override
     public void deleteCategory(Long categoryId) {
-
         unionService.getCategoryOrNotFound(categoryId);
-
         if (!eventRepository.findByCategoryId(categoryId).isEmpty()) {
             throw new ConflictException(String.format("This category id %s is used and cannot be deleted", categoryId));
         }
-
         categoryRepository.deleteById(categoryId);
     }
 
     @Override
     public List<CategoryDto> getCategories(Integer from, Integer size) {
-
         PageRequest pageRequest = PageRequest.of(from / size, size);
-
         return CategoryMapper.returnCategoryDtoList(categoryRepository.findAll(pageRequest));
     }
 
     @Override
     public CategoryDto getCategoryById(Long categoryId) {
-
         return CategoryMapper.returnCategoryDto(unionService.getCategoryOrNotFound(categoryId));
     }
 }

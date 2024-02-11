@@ -5,9 +5,11 @@ import lombok.experimental.FieldDefaults;
 import ru.practicum.event.model.Event;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,4 +35,17 @@ public class Compilation {
             joinColumns = @JoinColumn(name = "compilation_id"),     //внешний ключ для объекта, для которого определяем сопоставление ассоциации.
             inverseJoinColumns = @JoinColumn(name = "event_id"))    //внешний ключ связанного объекта.
     Set<Event> events;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Compilation compilation = (Compilation) o;
+        return id != null && id.equals(compilation.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

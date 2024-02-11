@@ -55,14 +55,8 @@ public class UnionServiceImpl implements UnionService {
 
     @Override
     public Event getEventOrNotFound(Long eventId) {
-
-        Optional<Event> event = eventRepository.findById(eventId);
-
-        if (event.isEmpty()) {
-            throw new NotFoundException(Event.class, "Event id " + eventId + " not found.");
-        } else {
-            return event.get();
-        }
+        return eventRepository.findById(eventId)
+                .orElseThrow(() -> new NotFoundException(Event.class, "Event id " + eventId + " not found."));
     }
 
     @Override
