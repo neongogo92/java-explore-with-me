@@ -224,38 +224,46 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<EventShortDto> getEventsByPublic(String text, List<Long> categories, Boolean paid, String rangeStart, String rangeEnd, Boolean onlyAvailable, String sort, Integer from, Integer size, String uri, String ip) {
-
         LocalDateTime startTime = unionService.parseDate(rangeStart);
         LocalDateTime endTime = unionService.parseDate(rangeEnd);
 
-        if (startTime != null && endTime != null) {
-            if (startTime.isAfter(endTime)) {
-                throw new ValidationException("Start must be after End");
-            }
+        if (startTime != null && endTime != null && startTime.isAfter(endTime)) {
+            throw new ValidationException("Start must be after End");
         }
-
         PageRequest pageRequest = PageRequest.of(from / size, size);
         List<Event> events = eventRepository.findEventsByPublicFromParam(text, categories, paid, startTime, endTime, onlyAvailable, sort, pageRequest);
-        List<Long> eventIds = events.stream().map(Event::getId).collect(Collectors.toList());
-        Map<Long, Long> viewsMap = getViewsForEvents(eventIds);
-
-        for (Event event : events) {
-            Long views = viewsMap.getOrDefault(event.getId(), 0L);
-            event.setViews(views);
-        }
-
-        eventRepository.saveAll(events);
         sendInfo(uri, ip);
+        Map<Long, Long> viewsMap = getViewsForEvents(events.stream().map(Event::getId).collect(Collectors.toList()));
+        events.forEach(event -> event.setViews(viewsMap.getOrDefault(event.getId(), 0L)));
+        eventRepository.saveAll(events);
         return EventMapper.returnEventShortDtoList(events);
     }
 
     private Map<Long, Long> getViewsForEvents(List<Long> eventIds) {
-        Map<Long, Long> viewsMap = new HashMap<>();
-        for (Long eventId : eventIds) {
-            Long views = getViewsEventById(eventId);
-            viewsMap.put(eventId, views);
+        String uris = eventIds.stream()
+                .map(id -> "/events/" + id)
+                .collect(Collectors.joining(","));
+        ResponseEntity<Object> response = client.findStats(START_HISTORY, LocalDateTime.now(), uris, true);
+        if (response.getBody() instanceof List) {
+            List<StatsDto> stats = objectMapper.convertValue(response.getBody(), new TypeReference<List<StatsDto>>() {});
+            return stats.stream()
+                    .collect(Collectors.toMap(
+                            stat -> extractEventIdFromUri(stat.getUri()),
+                            StatsDto::getHits,
+                            (existing, replacement) -> existing
+                    ));
+        } else {
+            throw new RuntimeException("Unexpected response body type from stats service");
         }
-        return viewsMap;
+    }
+
+    private Long extractEventIdFromUri(String uri) {
+        String[] parts = uri.split("/");
+        try {
+            return Long.parseLong(parts[parts.length - 1]);
+        } catch (NumberFormatException e) {
+            throw new RuntimeException("Failed to parse event ID from URI: " + uri, e);
+        }
     }
 
     private Long getViewsEventById(Long eventId) {

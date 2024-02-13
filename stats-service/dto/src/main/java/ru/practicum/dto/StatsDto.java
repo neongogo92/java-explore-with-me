@@ -20,4 +20,5 @@ public class StatsDto {
         this.uri = uri;
         this.hits = hits;
     }
+
 }
