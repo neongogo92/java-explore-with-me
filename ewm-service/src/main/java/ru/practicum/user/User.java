@@ -13,7 +13,6 @@ import java.util.Objects;
 @NoArgsConstructor
 @Entity
 @Table(name = "users", schema = "public")
-//@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
 

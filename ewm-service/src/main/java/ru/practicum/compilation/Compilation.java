@@ -15,7 +15,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Table(name = "compilations", schema = "public")
-//@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Compilation {
 

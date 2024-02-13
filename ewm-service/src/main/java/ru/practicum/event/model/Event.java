@@ -21,7 +21,6 @@ import static ru.practicum.Util.DATE_FORMAT;
 @NoArgsConstructor
 @Entity
 @Table(name = "events", schema = "public")
-//@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Event {
 

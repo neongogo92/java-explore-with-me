@@ -20,7 +20,6 @@ import static ru.practicum.Util.DATE_FORMAT;
 @NoArgsConstructor
 @Entity
 @Table(name = "requests", schema = "public")
-//@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Request {
 
