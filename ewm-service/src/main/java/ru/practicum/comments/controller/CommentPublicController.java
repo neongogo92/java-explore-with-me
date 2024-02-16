@@ -26,7 +26,6 @@ public class CommentPublicController {
                                                       @RequestParam(required = false, name = "rangeEnd") String rangeEnd,
                                                       @PositiveOrZero @RequestParam(name = "from", defaultValue = "0") Integer from,
                                                       @Positive @RequestParam(name = "size", defaultValue = "10") Integer size) {
-
         log.info("Get all comment by Event  id{}, from {} to end {}.", eventId, rangeStart, rangeEnd);
         return commentService.getCommentsByEventId(rangeStart, rangeEnd, eventId, from, size);
     }

@@ -60,7 +60,6 @@ public class EventServiceImpl implements EventService {
         Location location = locationRepository.save(LocationMapper.returnLocation(eventNewDto.getLocation()));
         Event event = EventMapper.returnEvent(eventNewDto, category, location, user);
         eventRepository.save(event);
-
         return EventMapper.returnEventFullDto(event);
     }
 
@@ -70,7 +69,6 @@ public class EventServiceImpl implements EventService {
         unionService.getUserOrNotFound(userId);
         PageRequest pageRequest = PageRequest.of(from / size, size);
         List<Event> events = eventRepository.findByInitiatorId(userId, pageRequest);
-
         return EventMapper.returnEventShortDtoList(events);
     }
 
@@ -80,14 +78,12 @@ public class EventServiceImpl implements EventService {
         unionService.getUserOrNotFound(userId);
         unionService.getEventOrNotFound(eventId);
         Event event = eventRepository.findByInitiatorIdAndId(userId,eventId);
-
         return EventMapper.returnEventFullDto(event);
     }
 
     @Override
     @Transactional
     public EventFullDto updateEventByUserId(EventUpdateDto eventUpdateDto, Long userId, Long eventId) {
-
         User user = unionService.getUserOrNotFound(userId);
         Event event = unionService.getEventOrNotFound(eventId);
         if (eventUpdateDto.getParticipantLimit() != null && eventUpdateDto.getParticipantLimit() < 0) {
@@ -105,7 +101,6 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<RequestDto> getRequestsForEventIdByUserId(Long userId, Long eventId) {
-
         User user = unionService.getUserOrNotFound(userId);
         Event event = unionService.getEventOrNotFound(eventId);
         if (!user.getId().equals(event.getInitiator().getId())) {
@@ -120,7 +115,6 @@ public class EventServiceImpl implements EventService {
     public RequestUpdateDtoResult updateStatusRequestsForEventIdByUserId(RequestUpdateDtoRequest requestDto, Long userId, Long eventId) {
         User user = unionService.getUserOrNotFound(userId);
         Event event = unionService.getEventOrNotFound(eventId);
-
         if (!user.getId().equals(event.getInitiator().getId())) {
             throw new ConflictException(String.format("User %s is not the initiator of the event %s.", userId, eventId));
         }
@@ -218,7 +212,6 @@ public class EventServiceImpl implements EventService {
         sendInfo(uri, ip);
         event.setViews(getViewsEventById(event.getId()));
         eventRepository.save(event);
-
         return EventMapper.returnEventFullDto(event);
     }
 

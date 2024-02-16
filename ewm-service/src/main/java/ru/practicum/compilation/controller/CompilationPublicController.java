@@ -25,7 +25,6 @@ public class CompilationPublicController {
     public List<CompilationDto> getCompilations(@RequestParam(defaultValue = "false", name = "pinned") Boolean pinned,
                                                 @PositiveOrZero @RequestParam(name = "from", defaultValue = "0") Integer from,
                                                 @Positive @RequestParam(name = "size", defaultValue = "10") Integer size) {
-
         log.info("Get all compilations from pinned = {}, and from = {}, size = {}", pinned,  from, size);
         return compilationService.getCompilations(pinned, from, size);
     }
@@ -33,7 +32,6 @@ public class CompilationPublicController {
     @GetMapping("/{compId}")
     @ResponseStatus(value = HttpStatus.OK)
     public CompilationDto getCompilationById(@PathVariable Long compId) {
-
         log.info("Get Compilation id {}", compId);
         return compilationService.getCompilationById(compId);
     }

@@ -50,7 +50,6 @@ public class CommentMapper {
 
     public List<CommentFullDto> returnCommentFullDtoList(Iterable<Comment> comments) {
         List<CommentFullDto> result = new ArrayList<>();
-
         for (Comment comment : comments) {
             result.add(returnCommentFullDto(comment));
         }
@@ -59,7 +58,6 @@ public class CommentMapper {
 
     public List<CommentShortDto> returnCommentShortDtoList(Iterable<Comment> comments) {
         List<CommentShortDto> result = new ArrayList<>();
-
         for (Comment comment : comments) {
             result.add(returnCommentShortDto(comment));
         }

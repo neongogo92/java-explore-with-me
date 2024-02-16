@@ -34,9 +34,7 @@ public class UnionServiceImpl implements UnionService {
 
     @Override
     public User getUserOrNotFound(Long userId) {
-
         Optional<User> user = userRepository.findById(userId);
-
         if (user.isEmpty()) {
             throw new NotFoundException(User.class, "User id " + userId + " not found.");
         } else {
@@ -46,9 +44,7 @@ public class UnionServiceImpl implements UnionService {
 
     @Override
     public Category getCategoryOrNotFound(Long categoryId) {
-
         Optional<Category> category = categoryRepository.findById(categoryId);
-
         if (category.isEmpty()) {
             throw new NotFoundException(Category.class, "Category id " + categoryId + " not found.");
         } else {
@@ -58,9 +54,7 @@ public class UnionServiceImpl implements UnionService {
 
     @Override
     public Event getEventOrNotFound(Long eventId) {
-
         Optional<Event> event = eventRepository.findById(eventId);
-
         if (event.isEmpty()) {
             throw new NotFoundException(Event.class, "Event id " + eventId + " not found.");
         } else {
@@ -70,9 +64,7 @@ public class UnionServiceImpl implements UnionService {
 
     @Override
     public Request getRequestOrNotFound(Long requestId) {
-
         Optional<Request> request = requestRepository.findById(requestId);
-
         if (request.isEmpty()) {
             throw new NotFoundException(Request.class, "Request id " + requestId + " not found.");
         } else {
@@ -82,9 +74,7 @@ public class UnionServiceImpl implements UnionService {
 
     @Override
     public Compilation getCompilationOrNotFound(Long compId) {
-
         Optional<Compilation> compilation = compilationRepository.findById(compId);
-
         if (compilation.isEmpty()) {
             throw new NotFoundException(Compilation.class, "Compilation id " + compId + " not found.");
         } else {
@@ -95,7 +85,6 @@ public class UnionServiceImpl implements UnionService {
     @Override
     public Comment getCommentOrNotFound(Long commentId) {
         Optional<Comment> comment = commentRepository.findById(commentId);
-
         if (comment.isEmpty()) {
             throw new NotFoundException(Comment.class, "Comment id " + commentId + " not found.");
         } else {

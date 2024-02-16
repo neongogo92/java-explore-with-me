@@ -14,9 +14,7 @@ import java.util.Set;
 public class CollectionMapper {
 
     public CompilationDto returnCompilationDto(Compilation compilation) {
-
         List<EventShortDto> eventShortDtoList = EventMapper.returnEventShortDtoList(compilation.getEvents());
-
         Set<EventShortDto> eventShortDtoSet = new HashSet<>();
         for (EventShortDto shortDto : eventShortDtoList) {
             eventShortDtoSet.add(shortDto);
@@ -37,7 +35,6 @@ public class CollectionMapper {
     }
 
     public Set<CompilationDto> returnCompilationDtoSet(Iterable<Compilation> compilations) {
-
         Set<CompilationDto> result = new HashSet<>();
         for (Compilation compilation : compilations) {
             result.add(returnCompilationDto(compilation));

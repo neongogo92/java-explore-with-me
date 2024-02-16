@@ -24,7 +24,6 @@ public class StatsClient extends BaseClient {
 
     @Autowired
     public StatsClient(@Value("${stats-server.url}") String serverUrl, RestTemplateBuilder builder) {
-
         super(
                 builder
                         .uriTemplateHandler(new DefaultUriBuilderFactory(serverUrl))
@@ -34,7 +33,6 @@ public class StatsClient extends BaseClient {
     }
 
     public ResponseEntity<Object> findStats(LocalDateTime start, LocalDateTime  end, String uris, boolean unique) {
-
         Map<String, Object> parameters = Map.of(
                 "start", start.format(DateTimeFormatter.ofPattern(DATE_FORMAT)),
                 "end", end.format(DateTimeFormatter.ofPattern(DATE_FORMAT)),

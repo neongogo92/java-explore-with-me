@@ -63,7 +63,6 @@ public class EventMapper {
     }
 
     public EventShortDto returnEventShortDto(Event event) {
-
         EventShortDto eventShortDto = EventShortDto.builder()
                 .annotation(event.getAnnotation())
                 .category(CategoryMapper.returnCategoryDto(event.getCategory()))
@@ -80,7 +79,6 @@ public class EventMapper {
 
     public List<EventFullDto> returnEventFullDtoList(Iterable<Event> events) {
         List<EventFullDto> result = new ArrayList<>();
-
         for (Event event : events) {
             result.add(returnEventFullDto(event));
         }
@@ -89,7 +87,6 @@ public class EventMapper {
 
     public List<EventShortDto> returnEventShortDtoList(Iterable<Event> events) {
         List<EventShortDto> result = new ArrayList<>();
-
         for (Event event : events) {
             result.add(returnEventShortDto(event));
         }

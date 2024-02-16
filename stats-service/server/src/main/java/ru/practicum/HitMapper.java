@@ -8,7 +8,6 @@ import java.util.List;
 public class HitMapper {
 
     public static HitDto returnHitDto(Hit hit) {
-
         HitDto hitDto = HitDto.builder()
                 .id(hit.getId())
                 .app(hit.getApp())
@@ -20,7 +19,6 @@ public class HitMapper {
     }
 
     public static Hit returnHit(HitDto hitDto) {
-
         Hit hit = Hit.builder()
                 .id(hitDto.getId())
                 .app(hitDto.getApp())
@@ -33,7 +31,6 @@ public class HitMapper {
 
     public static List<HitDto> returnHitDtoList(Iterable<Hit> hits) {
         List<HitDto> result = new ArrayList<>();
-
         for (Hit hit : hits) {
             result.add(returnHitDto(hit));
         }

@@ -18,7 +18,7 @@ public interface CommentService {
 
     List<CommentFullDto> getComments(String rangeStart, String rangeEnd, Integer from, Integer size);
 
-    void  deleteAdminComment(Long commentId);
+    void deleteAdminComment(Long commentId);
 
     List<CommentShortDto> getCommentsByEventId(String rangeStart, String rangeEnd, Long eventId, Integer from, Integer size);
 }

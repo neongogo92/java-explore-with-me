@@ -22,7 +22,6 @@ public class CommentAdminController {
     @DeleteMapping("/{commentId}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteComment(@PathVariable Long commentId) {
-
         log.info("Admin delete Comment {} ", commentId);
         commentService.deleteAdminComment(commentId);
     }
@@ -33,7 +32,6 @@ public class CommentAdminController {
                                             @RequestParam(required = false, name = "rangeEnd") String rangeEnd,
                                             @PositiveOrZero @RequestParam(name = "from", defaultValue = "0") Integer from,
                                             @Positive @RequestParam(name = "size", defaultValue = "10") Integer size) {
-
         log.info("Get all comment from {} to end {}.", rangeStart, rangeEnd);
         return commentService.getComments(rangeStart, rangeEnd, from, size);
     }

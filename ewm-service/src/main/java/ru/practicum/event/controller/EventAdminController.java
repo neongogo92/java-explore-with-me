@@ -30,7 +30,6 @@ public class EventAdminController {
                                                @RequestParam(required = false, name = "rangeEnd") String rangeEnd,
                                                @PositiveOrZero @RequestParam(name = "from", defaultValue = "0") Integer from,
                                                @Positive @RequestParam(name = "size", defaultValue = "10") Integer size) {
-
         log.info("Get all events with parameters: users = {}, states = {}, categories = {}, rangeStart = {}, rangeEnd = {}, from = {}, size = {}", users, states, categories, rangeStart, rangeEnd, from, size);
         return eventService.getEventsByAdmin(users, states, categories, rangeStart, rangeEnd, from, size);
     }
@@ -39,7 +38,6 @@ public class EventAdminController {
     @ResponseStatus(value = HttpStatus.OK)
     public EventFullDto updateEventByAdmin(@Valid @RequestBody EventUpdateDto eventUpdateDto,
                                            @PathVariable Long eventId) {
-
         log.info("Admin update Event {} ", eventId);
         return eventService.updateEventByAdmin(eventUpdateDto, eventId);
     }

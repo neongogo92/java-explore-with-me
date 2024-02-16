@@ -22,7 +22,6 @@ public class UserController {
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     public UserDto addUser(@Valid @RequestBody UserDto userDto) {
-
         log.info("Add User {} ", userDto.getName());
         return userService.addUser(userDto);
     }
@@ -32,7 +31,6 @@ public class UserController {
     public List<UserDto> getUsers(@RequestParam(required = false) List<Long> ids,
                                   @PositiveOrZero @RequestParam(name = "from", defaultValue = "0") Integer from,
                                   @Positive @RequestParam(name = "size", defaultValue = "10") Integer size) {
-
         log.info("List Users, where ids: {}, from = {}, size = {}", ids, from, size);
         return userService.getUsers(ids, from, size);
     }
@@ -40,7 +38,6 @@ public class UserController {
     @DeleteMapping("/{userId}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteUser(@Positive @PathVariable("userId") Long userId) {
-
         log.info("User {} deleted ", userId);
         userService.deleteUser(userId);
     }

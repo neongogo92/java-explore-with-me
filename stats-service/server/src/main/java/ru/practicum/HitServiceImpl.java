@@ -22,19 +22,16 @@ public class HitServiceImpl implements HitService {
     @Transactional
     @Override
     public void addHit(HitDto hitDto) {
-
         hitRepository.save(HitMapper.returnHit(hitDto));
     }
 
     @Override
     public List<StatsDto> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
-
         if (start != null && end != null) {
             if (start.isAfter(end)) {
                 throw new StatsValidationException("Start must be after End");
             }
         }
-
         if (uris == null || uris.isEmpty()) {
             if (unique) {
                 log.info("Get all stats by uniq ip");

@@ -38,7 +38,6 @@ public class UserMapper {
 
     public List<UserDto> returnUserDtoList(Iterable<User> users) {
         List<UserDto> result = new ArrayList<>();
-
         for (User user : users) {
             result.add(returnUserDto(user));
         }
