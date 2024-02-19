@@ -22,18 +22,14 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public UserDto addUser(UserDto userDto) {
-
         User user = UserMapper.returnUser(userDto);
         userRepository.save(user);
-
         return UserMapper.returnUserDto(user);
     }
 
     @Override
     public List<UserDto> getUsers(List<Long> ids, Integer from, Integer size) {
-
         PageRequest pageRequest = PageRequest.of(from / size, size);
-
         if (ids == null) {
             return UserMapper.returnUserDtoList(userRepository.findAll(pageRequest));
         } else {
@@ -44,7 +40,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void deleteUser(long userId) {
-
         unionService.getUserOrNotFound(userId);
         userRepository.deleteById(userId);
     }

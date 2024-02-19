@@ -11,10 +11,10 @@ import ru.practicum.event.model.Location;
 import ru.practicum.user.User;
 import ru.practicum.user.UserMapper;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static ru.practicum.Util.CURRENT_TIME;
 import static ru.practicum.util.enums.State.PENDING;
 
 @UtilityClass
@@ -31,7 +31,7 @@ public class EventMapper {
                 .paid(eventNewDto.getPaid())
                 .participantLimit(eventNewDto.getParticipantLimit())
                 .requestModeration(eventNewDto.getRequestModeration())
-                .createdOn(LocalDateTime.now())
+                .createdOn(CURRENT_TIME)
                 .views(0L)
                 .state(PENDING)
                 .confirmedRequests(0L)
@@ -63,7 +63,6 @@ public class EventMapper {
     }
 
     public EventShortDto returnEventShortDto(Event event) {
-
         EventShortDto eventShortDto = EventShortDto.builder()
                 .annotation(event.getAnnotation())
                 .category(CategoryMapper.returnCategoryDto(event.getCategory()))
@@ -80,7 +79,6 @@ public class EventMapper {
 
     public List<EventFullDto> returnEventFullDtoList(Iterable<Event> events) {
         List<EventFullDto> result = new ArrayList<>();
-
         for (Event event : events) {
             result.add(returnEventFullDto(event));
         }
@@ -89,7 +87,6 @@ public class EventMapper {
 
     public List<EventShortDto> returnEventShortDtoList(Iterable<Event> events) {
         List<EventShortDto> result = new ArrayList<>();
-
         for (Event event : events) {
             result.add(returnEventShortDto(event));
         }

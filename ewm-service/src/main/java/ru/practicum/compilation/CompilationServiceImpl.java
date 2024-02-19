@@ -28,7 +28,6 @@ public class CompilationServiceImpl implements CompilationService {
     @Override
     @Transactional
     public CompilationDto addCompilation(CompilationNewDto compilationNewDto) {
-
         Compilation compilation = CollectionMapper.returnCompilation(compilationNewDto);
         if (compilation.getPinned() == null) {
             compilation.setPinned(false);
@@ -46,7 +45,6 @@ public class CompilationServiceImpl implements CompilationService {
     @Transactional
 
     public void deleteCompilation(Long compId) {
-
         unionService.getCompilationOrNotFound(compId);
         compilationRepository.deleteById(compId);
     }
@@ -54,7 +52,6 @@ public class CompilationServiceImpl implements CompilationService {
     @Override
     @Transactional
     public CompilationDto updateCompilation(Long compId, CompilationUpdateDto compilationUpdateDto) {
-
         Compilation compilation = unionService.getCompilationOrNotFound(compId);
         if (compilation.getPinned() == null) {
             compilation.setPinned(false);
@@ -73,7 +70,6 @@ public class CompilationServiceImpl implements CompilationService {
 
     @Override
     public List<CompilationDto> getCompilations(Boolean pinned, Integer from, Integer size) {
-
         PageRequest pageRequest = PageRequest.of(from / size, size);
         List<Compilation> compilations;
         if (pinned) {
@@ -86,7 +82,6 @@ public class CompilationServiceImpl implements CompilationService {
 
     @Override
     public CompilationDto getCompilationById(Long compId) {
-
         Compilation compilation = unionService.getCompilationOrNotFound(compId);
         return CollectionMapper.returnCompilationDto(compilation);
     }

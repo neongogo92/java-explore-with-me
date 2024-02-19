@@ -19,7 +19,6 @@ public class RequestController {
     @ResponseStatus(value = HttpStatus.CREATED)
     public RequestDto addRequest(@PathVariable Long userId,
                                  @RequestParam Long eventId) {
-
         log.info("User id {} added request for Event id {}.", userId, eventId);
         return requestService.addRequest(userId, eventId);
     }
@@ -27,7 +26,6 @@ public class RequestController {
     @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     public List<RequestDto> getRequestsByUserId(@PathVariable Long userId) {
-
         log.info("Get all requests by user id{}.", userId);
         return requestService.getRequestsByUserId(userId);
     }
@@ -36,7 +34,6 @@ public class RequestController {
     @ResponseStatus(value = HttpStatus.OK)
     public RequestDto cancelRequest(@PathVariable Long userId,
                                     @PathVariable Long requestId) {
-
         log.info("User id{} canceled request id{}.", userId, requestId);
         return requestService.cancelRequest(userId, requestId);
     }

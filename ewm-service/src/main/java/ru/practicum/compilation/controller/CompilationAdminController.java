@@ -22,7 +22,6 @@ public class CompilationAdminController {
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     public CompilationDto addCompilation(@Valid @RequestBody CompilationNewDto compilationNewDto) {
-
         log.info("Add Compilation {} ", compilationNewDto.getTitle());
         return compilationService.addCompilation(compilationNewDto);
     }
@@ -30,7 +29,6 @@ public class CompilationAdminController {
     @DeleteMapping("/{compId}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteCompilation(@PathVariable("compId") Long compId) {
-
         log.info("Delete Compilation {} ", compId);
         compilationService.deleteCompilation(compId);
     }
@@ -39,7 +37,6 @@ public class CompilationAdminController {
     @ResponseStatus(value = HttpStatus.OK)
     public CompilationDto updateCompilation(@Valid @RequestBody CompilationUpdateDto compilationUpdateDto,
                                             @PathVariable Long compId) {
-
         log.info("Update Compilation {} ", compId);
         return compilationService.updateCompilation(compId, compilationUpdateDto);
     }

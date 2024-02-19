@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.category.Category;
 import ru.practicum.category.CategoryRepository;
+import ru.practicum.comments.Comment;
+import ru.practicum.comments.CommentRepository;
 import ru.practicum.compilation.Compilation;
 import ru.practicum.compilation.CompilationRepository;
 import ru.practicum.event.EventRepository;
@@ -28,12 +30,11 @@ public class UnionServiceImpl implements UnionService {
     private final EventRepository eventRepository;
     private final RequestRepository requestRepository;
     private final CompilationRepository compilationRepository;
+    private final CommentRepository commentRepository;
 
     @Override
     public User getUserOrNotFound(Long userId) {
-
         Optional<User> user = userRepository.findById(userId);
-
         if (user.isEmpty()) {
             throw new NotFoundException(User.class, "User id " + userId + " not found.");
         } else {
@@ -43,9 +44,7 @@ public class UnionServiceImpl implements UnionService {
 
     @Override
     public Category getCategoryOrNotFound(Long categoryId) {
-
         Optional<Category> category = categoryRepository.findById(categoryId);
-
         if (category.isEmpty()) {
             throw new NotFoundException(Category.class, "Category id " + categoryId + " not found.");
         } else {
@@ -55,15 +54,17 @@ public class UnionServiceImpl implements UnionService {
 
     @Override
     public Event getEventOrNotFound(Long eventId) {
-        return eventRepository.findById(eventId)
-                .orElseThrow(() -> new NotFoundException(Event.class, "Event id " + eventId + " not found."));
+        Optional<Event> event = eventRepository.findById(eventId);
+        if (event.isEmpty()) {
+            throw new NotFoundException(Event.class, "Event id " + eventId + " not found.");
+        } else {
+            return event.get();
+        }
     }
 
     @Override
     public Request getRequestOrNotFound(Long requestId) {
-
         Optional<Request> request = requestRepository.findById(requestId);
-
         if (request.isEmpty()) {
             throw new NotFoundException(Request.class, "Request id " + requestId + " not found.");
         } else {
@@ -73,13 +74,21 @@ public class UnionServiceImpl implements UnionService {
 
     @Override
     public Compilation getCompilationOrNotFound(Long compId) {
-
         Optional<Compilation> compilation = compilationRepository.findById(compId);
-
         if (compilation.isEmpty()) {
             throw new NotFoundException(Compilation.class, "Compilation id " + compId + " not found.");
         } else {
             return compilation.get();
+        }
+    }
+
+    @Override
+    public Comment getCommentOrNotFound(Long commentId) {
+        Optional<Comment> comment = commentRepository.findById(commentId);
+        if (comment.isEmpty()) {
+            throw new NotFoundException(Comment.class, "Comment id " + commentId + " not found.");
+        } else {
+            return comment.get();
         }
     }
 

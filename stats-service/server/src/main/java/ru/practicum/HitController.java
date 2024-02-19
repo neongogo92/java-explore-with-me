@@ -23,7 +23,6 @@ public class HitController {
     @PostMapping("/hit")
     @ResponseStatus(value = HttpStatus.CREATED)
     public void addHit(@Valid @RequestBody HitDto hitDto) {
-
         log.info("Hit created");
         hitService.addHit(hitDto);
     }
@@ -34,10 +33,8 @@ public class HitController {
                                    @RequestParam("end") String end,
                                    @RequestParam(required = false) List<String> uris,
                                    @RequestParam(required = false, defaultValue = "false") Boolean unique) {
-
         LocalDateTime startTime = LocalDateTime.parse(start, FORMATTER);
         LocalDateTime endTime = LocalDateTime.parse(end, FORMATTER);
-
         log.info("Get stats");
         return hitService.getStats(startTime, endTime, uris, unique);
     }

@@ -23,7 +23,6 @@ public class CategoryPublicController {
     @ResponseStatus(value = HttpStatus.OK)
     public List<CategoryDto> getCategories(@PositiveOrZero @RequestParam(name = "from", defaultValue = "0") Integer from,
                                            @Positive @RequestParam(name = "size", defaultValue = "10") Integer size) {
-
         log.info("List Categories, where: from = {}, size = {}", from, size);
         return categoryService.getCategories(from, size);
     }
@@ -31,7 +30,6 @@ public class CategoryPublicController {
     @GetMapping("/{catId}")
     @ResponseStatus(value = HttpStatus.OK)
     public CategoryDto getCategory(@PathVariable("catId") Long categoryId) {
-
         log.info("Get Category id {}", categoryId);
         return categoryService.getCategoryById(categoryId);
     }
